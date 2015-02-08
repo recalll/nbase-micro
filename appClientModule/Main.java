@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class Main {
@@ -70,7 +71,15 @@ public class Main {
 		//person 
 		
 		
-		
+		  for (Map.Entry<String, Type> entry : nbase.entrySet()) {
+		        HashMap<String, String> hm = new HashMap<String, String>((Map<? extends String, ? extends String>) entry.getValue());
+		        for (Map.Entry<String, String> line : hm.entrySet()) {
+		        	if (line.getValue().equals(keyword)) {
+		        		return hm;
+		        	}
+		        }
+		    }
+			return null;
 		return nbase;
 	}
 	
