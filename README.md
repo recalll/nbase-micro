@@ -4,8 +4,7 @@ This repository contains experimental algorithms used in nBase.
 
 Algorithms to work on
 -----
-
-Solve queries:
+Queries:
 
 "person name parvinder"
 
@@ -17,15 +16,37 @@ Solve queries:
 
 "article of parvinder"
 
+Create query windows to process like this - for first one
+
+person name parvinder
+
+person name
+
+name parvinder
+
+than find out which records answting the queries.
+
 Minimal example:
 
-```php
+```JAVA
 
+private HashMap<String, Type> nbase(){
+//this method returns you small data set to lookup.
+}
+
+private boolean isAux(HashMap<String, Type> auxL, String keyword){
+//this is checking is passed keyword is Auxiliary or not 
+}
+
+private void createWindowSizes(String query_inp){
+//creating window sizes for query.
+}
 
 ```
 
-Complete documentation, installation instructions, and examples are available at:
-[https://developers.facebook.com/docs/php](https://developers.facebook.com/docs/php)
+Class Type is object or main Type using that class we can create any type. Tirple is property of the Object, which holds key and value and id of parent object.
+[https://schema.org](https://schema.org) gives you better idea.
+
 
 Contributing
 ------------
