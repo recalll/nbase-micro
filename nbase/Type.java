@@ -15,13 +15,13 @@ public class Type {
 	public void createTriples(HashMap<String, String> props){
 		for(String key: props.keySet()){
 			Triple t = new Triple(this.name, key, props.get(key));
-			this.properties.put(this.name, t);
+			this.properties.put(key, t);
 		}
 	}
 	
 	public boolean checkForProperty(String k){
 		for(Triple tl : this.properties.values()){
-			if(tl._property.equals(k)){
+			if(tl._property.toLowerCase().equals(k.toLowerCase())){
 				return true;
 			}
 		}

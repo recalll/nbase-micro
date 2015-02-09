@@ -6,7 +6,7 @@ import java.util.Map;
 public class Main {
 	public static void main(String[] args) {
 
-		String query_inp = "I want to walk my dog";
+		String query_inp = "person name parvinder";
 		int cnt = 0, i = 0;
 		ArrayList<String> query_list = new ArrayList<String>();
 		ArrayList<String> stop_list = new ArrayList<String>();
@@ -36,14 +36,20 @@ public class Main {
 
 		ArrayList<Integer> type_list = new ArrayList<Integer>(cnt);
 
-		int window_size = cnt;
+		//int window_size = cnt;
+		int window_size = 1;
 		StringBuilder grp_str = new StringBuilder();
 		while (window_size != 0) {
 			while(i+ window_size <= cnt) {
 				for (int j = 0; j < window_size; j++) {
-					grp_str.append(query_list.get(i+j)+" ");
+					//grp_str.append(query_list.get(i+j)+" ");
+					grp_str.append(query_list.get(i+j));
 				}
 				System.out.println(grp_str);// we will call nbase api
+				Main main_obj = new Main();		
+				System.out.println(i);
+				HashMap<String, Type> hm = main_obj.search(grp_str.toString());
+				System.out.println("Map : " + hm);
 				i++;
 				grp_str.delete(0, grp_str.length());
 			}
@@ -61,36 +67,80 @@ public class Main {
 		//article of parvinder 
 	}
 
-	private HashMap<String, Type> search(String keyword) {
+	@SuppressWarnings("unchecked")
+	public  HashMap<String, Type> search(String keyword) {
 		HashMap<String, Type> nbase = this.nbase();
-		HashMap<String, Type> auxL = new HashMap<String, Type>();
-		HashMap<String, Type> keyList = new HashMap<String, Type>();
+		
+		//HashMap<String, Type> keyList = new HashMap<String, Type>();
 		//Check keyword for auxl
+		HashMap<String, Type> auxL = new HashMap<String, Type>();
+		HashMap<String, String> props1 = new HashMap<String, String>();
+		props1.put("", "");
+		Type type = new Type("type", Type.types.TYPE.toString(), props1);
 		
-		//based on keyword perform search
-		//person 
+		auxL.put("person", type);
 		
 		
-		  for (Map.Entry<String, Type> entry : nbase.entrySet()) {
-		        HashMap<String, String> hm = new HashMap<String, String>((Map<? extends String, ? extends String>) entry.getValue());
-		        for (Map.Entry<String, String> line : hm.entrySet()) {
-		        	if (line.getValue().equals(keyword)) {
-		        		return hm;
-		        	}
-		        }
-		    }
+		if (isAux(nbase, keyword)) {
+			System.out.println(keyword+" is aux");
 			return null;
-		return nbase;
+		}
+		HashMap<String, Type> hm = new HashMap<String, Type>();
+	    for (String key : nbase.keySet()) {
+	    	Type t = nbase.get(key);
+	    	for(Triple tl : t.getProperties().values()){
+//	    		System.out.println(tl.get_value() + "=" + keyword);
+	        	if (tl.get_value().toLowerCase().contains(keyword.toLowerCase())) {
+	        		hm.put(key, t);
+	        		//check for how many values matches with key word and add weight
+//	        		break;
+	        	}
+	        }
+	    }
+		return hm;
 	}
 	
 	private boolean isAux(HashMap<String, Type> auxL, String keyword){
 		for(Type t : auxL.values()){
-			if(t.getType().equals("type") || t.checkForProperty(keyword)){
+//			System.out.println(t.getType() + "=" + keyword);
+			if((t.getType().equals("type") && t.getName().toLowerCase().equals(keyword)) || t.checkForProperty(keyword)){
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	private void createWindowSizes(String query_inp){
+		int cnt = 0, i = 0;
+		ArrayList<String> query_list = new ArrayList<String>();
+		String[] arr = query_inp.split(" ");    
+
+		for ( String ss : arr) {
+
+			query_list.add(ss);
+			cnt++;
+		}
+
+		ArrayList<Integer> type_list = new ArrayList<Integer>(cnt);
+
+		int window_size = cnt;
+		StringBuilder grp_str = new StringBuilder();
+		while (window_size != 0) {
+			while(i+ window_size <= cnt) {
+				for (int j = 0; j < window_size; j++) {
+					grp_str.append(query_list.get(i+j)+" ");
+				}
+				System.out.println(grp_str);// we will call nbase api
+				i++;
+				grp_str.delete(0, grp_str.length());
+			}
+			i = 0;
+			window_size--;
+		}
+
+	}
+
+	
 
 	private HashMap<String, Type> nbase(){
 		//Create Type with properties
@@ -120,7 +170,7 @@ public class Main {
 		propsA.put("description", "This is article about parvinder singh");
 		propsA.put("website", "wikipedia");//reference to object
 
-		Type parvinderA = new Type("Parvinder Singh", "Article", propsA);
+		Type parvinderA = new Type("Parvinder Article", "Article", propsA);
 
 		HashMap<String, String> props = new HashMap<String, String>();
 		props.put("name", "Parvinder singh");
