@@ -5,7 +5,7 @@ This repository contains experimental algorithms used in nBase.
 Algorithms to work on
 -----
 Queries:
-
+```JAVA
 "person name parvinder"
 
 "person name prashana"
@@ -28,7 +28,7 @@ than find out which records answting the queries.
 
 Minimal example:
 
-```JAVA
+
 
 private HashMap<String, Type> nbase(){
 //this method returns you small data set to lookup.
