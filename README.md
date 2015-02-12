@@ -47,7 +47,7 @@ private void createWindowSizes(String query_inp){
 Class Type is object or main Type using that class we can create any type. Triple is property of the Object, 
 
 which holds key and value and id of parent object.
-[https://schema.org/docs/datamodel.html](https://schema.org) gives you better idea.
+[https://schema.org/docs/datamodel.html](https://schema.org/docs/datamodel.html) gives you better idea.
 
 
 Contributing
