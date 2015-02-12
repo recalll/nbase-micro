@@ -6,11 +6,11 @@ Algorithms to work on
 -----
 Queries:
 ```JAVA
-"person name parvinder"
+"person name parvinder" // Expacted result - returned objects name should be parvinder and type person
 
-"person name prashana"
+"person name prashana" //Empty result
 
-"engineers in iincore"
+"engineers in iincore" //Persons who are engineer in IINCORE
 
 "person with degree MS"
 
@@ -31,7 +31,7 @@ Minimal example:
 
 
 private HashMap<String, Type> nbase(){
-//this method returns you small data set to lookup.
+//this method returns you small data set to lookup. 
 }
 
 private boolean isAux(HashMap<String, Type> auxL, String keyword){
@@ -44,7 +44,9 @@ private void createWindowSizes(String query_inp){
 
 ```
 
-Class Type is object or main Type using that class we can create any type. Tirple is property of the Object, which holds key and value and id of parent object.
+Class Type is object or main Type using that class we can create any type. Triple is property of the Object, 
+
+which holds key and value and id of parent object.
 [https://schema.org](https://schema.org) gives you better idea.
 
 
